@@ -22,6 +22,7 @@
 		3A6689B52BF9F8F900E27A4A /* Mars.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 3A6689AC2BF9F8F900E27A4A /* Mars.usdz */; };
 		3A6689B92BF9F96200E27A4A /* PlanetModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A6689B82BF9F96200E27A4A /* PlanetModel.swift */; };
 		3A6689BF2BF9FCBB00E27A4A /* ARView_ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A6689BE2BF9FCBB00E27A4A /* ARView_ViewModel.swift */; };
+		3A6689C22BFA046200E27A4A /* FocusEntity in Frameworks */ = {isa = PBXBuildFile; productRef = 3A6689C12BFA046200E27A4A /* FocusEntity */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,6 +49,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3A6689C22BFA046200E27A4A /* FocusEntity in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -148,6 +150,9 @@
 			dependencies = (
 			);
 			name = LearnSolarSystem;
+			packageProductDependencies = (
+				3A6689C12BFA046200E27A4A /* FocusEntity */,
+			);
 			productName = LearnSolarSystem;
 			productReference = 3A6688C12BF44F5E00E27A4A /* LearnSolarSystem.app */;
 			productType = "com.apple.product-type.application";
@@ -176,6 +181,9 @@
 				Base,
 			);
 			mainGroup = 3A6688B82BF44F5E00E27A4A;
+			packageReferences = (
+				3A6689C02BFA046200E27A4A /* XCRemoteSwiftPackageReference "FocusEntity" */,
+			);
 			productRefGroup = 3A6688C22BF44F5E00E27A4A /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -424,6 +432,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		3A6689C02BFA046200E27A4A /* XCRemoteSwiftPackageReference "FocusEntity" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/maxxfrazer/FocusEntity";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.5.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		3A6689C12BFA046200E27A4A /* FocusEntity */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3A6689C02BFA046200E27A4A /* XCRemoteSwiftPackageReference "FocusEntity" */;
+			productName = FocusEntity;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 3A6688B92BF44F5E00E27A4A /* Project object */;
 }
