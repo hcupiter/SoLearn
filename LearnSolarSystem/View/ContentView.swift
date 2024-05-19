@@ -9,8 +9,11 @@ import SwiftUI
 import RealityKit
 
 struct ContentView : View {
+    @StateObject private var arview_viewmodel = ARView_ViewModel(arViewContainer: ARViewContainer())
+    
     var body: some View {
-        ARViewContainer().edgesIgnoringSafeArea(.all)
+        // put arview to content view
+        arview_viewmodel.arViewContainer.ignoresSafeArea()
     }
 }
 
