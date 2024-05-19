@@ -23,6 +23,7 @@
 		3A6689B92BF9F96200E27A4A /* PlanetModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A6689B82BF9F96200E27A4A /* PlanetModel.swift */; };
 		3A6689BF2BF9FCBB00E27A4A /* ARView_ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A6689BE2BF9FCBB00E27A4A /* ARView_ViewModel.swift */; };
 		3A6689C42BFA343600E27A4A /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A6689C32BFA343600E27A4A /* Coordinator.swift */; };
+		3A6689C62BFA45C500E27A4A /* Uranus.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 3A6689C52BFA45C500E27A4A /* Uranus.usdz */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,6 +44,7 @@
 		3A6689B82BF9F96200E27A4A /* PlanetModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanetModel.swift; sourceTree = "<group>"; };
 		3A6689BE2BF9FCBB00E27A4A /* ARView_ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARView_ViewModel.swift; sourceTree = "<group>"; };
 		3A6689C32BFA343600E27A4A /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
+		3A6689C52BFA45C500E27A4A /* Uranus.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = Uranus.usdz; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +99,7 @@
 		3A6689A42BF9F88B00E27A4A /* 3DModel */ = {
 			isa = PBXGroup;
 			children = (
+				3A6689C52BFA45C500E27A4A /* Uranus.usdz */,
 				3A6689A52BF9F8F500E27A4A /* Earth.usdz */,
 				3A6689A72BF9F8F600E27A4A /* Jupiter.usdz */,
 				3A6689AC2BF9F8F900E27A4A /* Mars.usdz */,
@@ -203,6 +206,7 @@
 				3A6688C92BF44F5F00E27A4A /* Assets.xcassets in Resources */,
 				3A6689AF2BF9F8F900E27A4A /* Mercury.usdz in Resources */,
 				3A6689B32BF9F8F900E27A4A /* Neptune.usdz in Resources */,
+				3A6689C62BFA45C500E27A4A /* Uranus.usdz in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

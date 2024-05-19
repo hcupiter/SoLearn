@@ -18,8 +18,14 @@ struct ARViewContainer: UIViewRepresentable {
     let anchor = AnchorEntity()
     
     func makeUIView(context: Context) -> ARView {
+        // for debugging
         arView.debugOptions = .showWorldOrigin
+        
+        setupTapGestureRecognizer(context: context)
+        
+        loadPlanets()
         addAnchor()
+        
         return arView
     }
     
@@ -41,6 +47,10 @@ struct ARViewContainer: UIViewRepresentable {
     // overided function to communicate with SwiftUI
     func makeCoordinator() -> Coordinator {
         Coordinator(self)
+    }
+    
+    func loadPlanets(){
+        
     }
     
     func addDebugBox(){
