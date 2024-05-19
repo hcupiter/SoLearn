@@ -20,6 +20,7 @@
 		3A6689B32BF9F8F900E27A4A /* Neptune.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 3A6689AA2BF9F8F800E27A4A /* Neptune.usdz */; };
 		3A6689B42BF9F8F900E27A4A /* Venus.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 3A6689AB2BF9F8F900E27A4A /* Venus.usdz */; };
 		3A6689B52BF9F8F900E27A4A /* Mars.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 3A6689AC2BF9F8F900E27A4A /* Mars.usdz */; };
+		3A6689B92BF9F96200E27A4A /* PlanetModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A6689B82BF9F96200E27A4A /* PlanetModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,6 +38,7 @@
 		3A6689AA2BF9F8F800E27A4A /* Neptune.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = Neptune.usdz; sourceTree = "<group>"; };
 		3A6689AB2BF9F8F900E27A4A /* Venus.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = Venus.usdz; sourceTree = "<group>"; };
 		3A6689AC2BF9F8F900E27A4A /* Mars.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = Mars.usdz; sourceTree = "<group>"; };
+		3A6689B82BF9F96200E27A4A /* PlanetModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanetModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,6 +71,8 @@
 		3A6688C32BF44F5E00E27A4A /* LearnSolarSystem */ = {
 			isa = PBXGroup;
 			children = (
+				3A6689BA2BF9FA3600E27A4A /* ViewModel */,
+				3A6689B72BF9F95200E27A4A /* ModelData */,
 				3A6689A42BF9F88B00E27A4A /* 3DModel */,
 				3A6688C42BF44F5E00E27A4A /* AppDelegate.swift */,
 				3A6688C62BF44F5E00E27A4A /* ContentView.swift */,
@@ -100,6 +104,21 @@
 				3A6689AB2BF9F8F900E27A4A /* Venus.usdz */,
 			);
 			path = 3DModel;
+			sourceTree = "<group>";
+		};
+		3A6689B72BF9F95200E27A4A /* ModelData */ = {
+			isa = PBXGroup;
+			children = (
+				3A6689B82BF9F96200E27A4A /* PlanetModel.swift */,
+			);
+			path = ModelData;
+			sourceTree = "<group>";
+		};
+		3A6689BA2BF9FA3600E27A4A /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -181,6 +200,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3A6688C72BF44F5E00E27A4A /* ContentView.swift in Sources */,
+				3A6689B92BF9F96200E27A4A /* PlanetModel.swift in Sources */,
 				3A6688C52BF44F5E00E27A4A /* AppDelegate.swift in Sources */,
 				3A6689A32BF9F7B900E27A4A /* ARViewContainer.swift in Sources */,
 			);
