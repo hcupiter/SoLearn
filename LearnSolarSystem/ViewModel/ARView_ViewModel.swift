@@ -10,9 +10,6 @@ import Foundation
 class ARView_ViewModel: ObservableObject {
     @Published var isLoading: Bool = true
     
-    init(){
-        
-    }
 }
 
 struct PlanetData {
@@ -24,8 +21,8 @@ struct PlanetData {
             planetRotationTime: "It took 25 earth days for the sun to finish a rotation",
             planetOrbitTime: nil,
             planetOrbitAnimationDuration: nil,
-            planetScaleSize: 0.5,
-            planetDistanceScale: 1
+            planetScaleSize: 3,
+            planetDistanceScale: 0.5
         ),
         PlanetModel(
             planetPosition: 1,
@@ -34,7 +31,7 @@ struct PlanetData {
             planetRotationTime: "It took 58 earth days for mercury to finish a rotation (a day in mercury is longer than a year in mercury!)",
             planetOrbitTime: "It took 88 earth day to orbit the sun.",
             planetOrbitAnimationDuration: 10,
-            planetScaleSize: 0.5,
+            planetScaleSize: 0.05,
             planetDistanceScale: 0.2
         ),
         PlanetModel(
@@ -44,8 +41,8 @@ struct PlanetData {
             planetRotationTime: "It took 243 earth days for venus to finish a rotation",
             planetOrbitTime: "Venus took 225 earth days to finish orbiting the sun",
             planetOrbitAnimationDuration: 12.78,
-            planetScaleSize: 0.5,
-            planetDistanceScale: 0.4
+            planetScaleSize: 0.1,
+            planetDistanceScale: 0.25
         ),
         PlanetModel(
             planetPosition: 3,
@@ -54,8 +51,8 @@ struct PlanetData {
             planetRotationTime: "Earth took 24 hours to finish a rotation",
             planetOrbitTime: "Earth took 365.25 days (1 year) to finish orbitting the sun!",
             planetOrbitAnimationDuration: 20.74,
-            planetScaleSize: 0.5,
-            planetDistanceScale: 0.6
+            planetScaleSize: 0.1,
+            planetDistanceScale: 0.30
         ),
         PlanetModel(
             planetPosition: 4,
@@ -64,8 +61,8 @@ struct PlanetData {
             planetRotationTime: "It took 24.6 hours for mars to finish a rotation",
             planetOrbitTime: "Did you know that 1 year in Mars equals 687 Earth Days",
             planetOrbitAnimationDuration: 39.06,
-            planetScaleSize: 0.5,
-            planetDistanceScale: 0.8
+            planetScaleSize: 0.09,
+            planetDistanceScale: 0.35
         ),
         PlanetModel(
             planetPosition: 5,
@@ -75,7 +72,7 @@ struct PlanetData {
             planetOrbitTime: "Jupiter finish orbiting the sun in 11.86 years.",
             planetOrbitAnimationDuration: 245.91,
             planetScaleSize: 0.5,
-            planetDistanceScale: 1
+            planetDistanceScale: 0.40
         ),
         PlanetModel(
             planetPosition: 6,
@@ -84,8 +81,8 @@ struct PlanetData {
             planetRotationTime: "It took 10 hours for Saturn to finish a rotation",
             planetOrbitTime: "Saturn finish orbiting the sun in 29.4 years!",
             planetOrbitAnimationDuration: 609.71,
-            planetScaleSize: 0.5,
-            planetDistanceScale: 1.2
+            planetScaleSize: 0.3,
+            planetDistanceScale: 0.45
         ),
         PlanetModel(
             planetPosition: 7,
@@ -94,8 +91,8 @@ struct PlanetData {
             planetRotationTime: "A day in Uranus is only took 17 earth hours!",
             planetOrbitTime: "Uranus took 84 earth years to finish rotating the sun!",
             planetOrbitAnimationDuration: 1741.36,
-            planetScaleSize: 0.5,
-            planetDistanceScale: 1.4
+            planetScaleSize: 0.1,
+            planetDistanceScale: 0.55
         ),
         PlanetModel(
             planetPosition: 8,
@@ -104,8 +101,8 @@ struct PlanetData {
             planetRotationTime: "It took 16-19 earth hours for neptune to finish a rotation",
             planetOrbitTime: "Neptune took 165 earth years to finish rotating the sun!",
             planetOrbitAnimationDuration: 3422.44,
-            planetScaleSize: 0.5,
-            planetDistanceScale: 1.6
+            planetScaleSize: 0.09,
+            planetDistanceScale: 0.6
         ),
     ]
 }

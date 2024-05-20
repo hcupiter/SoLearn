@@ -8,23 +8,21 @@
 import SwiftUI
 
 struct LoadingView: View {
-    @ObservedObject var viewmodel: ARView_ViewModel
+    @Binding var isLoading: Bool
     @Environment(\.dismiss) private var dismiss
     
     var body: some View {
         VStack {
-            if viewmodel.isLoading {
+            if isLoading {
                 Text("Loading...")
             }
         }
-        .onReceive(viewmodel.$isLoading, perform: { _ in
-            if viewmodel.isLoading == false {
-                dismiss()
-            }
-        })
+        .onChange(of: isLoading) { oldValue, newValue in
+            dismiss()
+        }
     }
 }
 
 #Preview {
-    LoadingView(viewmodel: ARView_ViewModel())
+    LoadingView(isLoading: .constant(true))
 }

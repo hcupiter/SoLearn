@@ -17,10 +17,15 @@ struct ContentView : View {
         ZStack {
             ARViewContainer(viewModel: viewmodel)
                 .ignoresSafeArea()
+                .opacity(isLoading ? 1 : 1)
+//            LoadingView(isLoading: $isLoading)
+//                .opacity(isLoading ? 1 : 0)
+//                .ignoresSafeArea()
         }
-        .onReceive(viewmodel.$isLoading, perform: { _ in
-            isLoading = viewmodel.isLoading
-        })
+        .onChange(of: viewmodel.isLoading) { oldValue, newValue in
+            self.isLoading = newValue
+            print("[DEBUG]: ContentView loading status: \(isLoading)")
+        }
     }
 }
 

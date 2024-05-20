@@ -49,11 +49,11 @@ class PlanetModel {
         
         entityLoadRequest.sink { completionResult in
             switch completionResult {
-                case .finished:
-                    break
-                case .failure(let failure):
-                    print("[DEBUG]: Failed to load model entity :\(self.planetName) with error: \(failure.localizedDescription)")
-                    completion(nil)
+            case .finished:
+                break
+            case .failure(let failure):
+                print("[DEBUG]: Failed to load model entity :\(self.planetName) with error: \(failure.localizedDescription)")
+                completion(nil)
             }
         } receiveValue: { planetEntity in
             print("[DEBUG]: planet \(self.planetName) loaded")
@@ -101,7 +101,26 @@ class PlanetModel {
     
     // positioning the modelENtity
     func translateAndScaleModelEntity() {
-        self.modelEntity.transform.translation.z = 0 - self.planetDistanceScale
+        // Randomize planet starting position
+        if modelEntity.name == "Sun" {
+            self.modelEntity.transform.translation.z = 0 - self.planetDistanceScale
+        }
+        else {
+            let random = Functions.getRandomInclusive(lowerBound: 1, upperbound: 4)
+            switch random {
+                case 1:
+                    self.modelEntity.transform.translation.x = 0 - self.planetDistanceScale
+                case 2:
+                    self.modelEntity.transform.translation.z = 0 - self.planetDistanceScale
+                case 3:
+                    self.modelEntity.transform.translation.x = self.planetDistanceScale
+                case 4:
+                    self.modelEntity.transform.translation.z = self.planetDistanceScale
+                default:
+                    break
+            }
+        }
+        
         self.modelEntity.transform.scale = SIMD3(x: self.planetScaleSize, y: self.planetScaleSize, z: self.planetScaleSize)
     }
 }

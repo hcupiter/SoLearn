@@ -11,10 +11,9 @@ import SwiftUI
 import UIKit
 
 struct ARViewContainer: UIViewRepresentable {
+    let arView = ARView(frame: .zero)
     
     @ObservedObject var viewModel: ARView_ViewModel
-    
-    let arView = ARView(frame: .zero)
     
     // Create initial horizontal plane anchor for the content
     let anchor = AnchorEntity()
@@ -44,6 +43,7 @@ struct ARViewContainer: UIViewRepresentable {
     func addAnchor(){
         // Add the horizontal plane anchor to the scene
         arView.scene.anchors.append(anchor)
+        print("[DEBUG]: Anchor added to the scene")
     }
     
     // overided function to communicate with SwiftUI
@@ -52,11 +52,6 @@ struct ARViewContainer: UIViewRepresentable {
     }
     
     func loadAssets(){
-//        // set loadingState to true before starting the loading process
-//        DispatchQueue.main.async {
-//            viewModel.isLoading = true
-//        }
-        
         // load sun first
         let sunModel: PlanetModel = PlanetData.planets[0]
         sunModel.loadModelEntity(completion: { modelEntity in
@@ -69,13 +64,9 @@ struct ARViewContainer: UIViewRepresentable {
                         if let p = planet {
                             sunEntity.children.append(p)
                         }
-                       
                     }
-                    
-//                    // set is loading to false
-//                    DispatchQueue.main.async {
-//                        viewModel.isLoading = false
-//                    }
+                    print("[DEBUG]: All planets assets successfully put in place")
+                    print("[DEBUG]: ending isLoading status: \(self.viewModel.isLoading)")
                 })
             }
         })
@@ -92,6 +83,7 @@ struct ARViewContainer: UIViewRepresentable {
             planet.loadModelEntity(completion: { modelEntity in
                 if let planetEntity = modelEntity {
                     planets.insert(planetEntity, at: planet.planetPosition - 1)
+                    planet.addOrbitAnimation() // add orbit animation
                     dispatchGroup.leave()
                 }
             })
@@ -101,6 +93,10 @@ struct ARViewContainer: UIViewRepresentable {
             print("[DEBUG]: All planets assets loaded")
             completion(planets)
         }
+    }
+    
+    mutating func setViewModel(viewmodel: ARView_ViewModel){
+        self.viewModel = viewmodel
     }
     
     func addDebugBox(){
