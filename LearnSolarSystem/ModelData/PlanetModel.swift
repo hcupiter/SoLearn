@@ -11,8 +11,11 @@ import Combine
 import UIKit
 
 class PlanetModel {
+    var planetPosition: Int
     var planetName: String
     var planetDesc: String
+    var planetScaleSize: Float
+    var planetDistanceScale: Float
     var planetRotationTime: String
     var planetOrbitTime: String?
     
@@ -21,31 +24,65 @@ class PlanetModel {
     
     var cancellables: Set<AnyCancellable>!
     
-    init(planetName: String, planetDesc: String, planetRotationTime: String, planetOrbitTime: String?, planetOrbitAnimationDuration: Double?){
+    init(planetPosition: Int, planetName: String, planetDesc: String, planetRotationTime: String, planetOrbitTime: String?, planetOrbitAnimationDuration: Double?, planetScaleSize: Float, planetDistanceScale: Float){
+        self.planetPosition = planetPosition
         self.planetName = planetName
         self.planetDesc = planetDesc
         self.planetRotationTime = planetRotationTime
         self.planetOrbitTime = planetOrbitTime
+        self.planetScaleSize = planetScaleSize
+        self.planetDistanceScale = planetDistanceScale
         
         self.planetOrbitAnimationDuration = planetOrbitAnimationDuration
+        self.cancellables = Set<AnyCancellable>()
     }
     
     func loadModelEntity(completion: @escaping (ModelEntity?) -> Void) {
+        // if the 3d model already loaded, return the loaded 3d model
+        if self.modelEntity != nil {
+            completion(self.modelEntity)
+            return
+        }
+        
+        // else start load
         let entityLoadRequest = ModelEntity.loadModelAsync(named: planetName + ".usdz")
         
-        entityLoadRequest.sink { completion in
-            switch completion {
+        entityLoadRequest.sink { completionResult in
+            switch completionResult {
                 case .finished:
                     break
                 case .failure(let failure):
-                    print("Failed to load model entity :\(self.planetName) with error: \(failure.localizedDescription)")
+                    print("[DEBUG]: Failed to load model entity :\(self.planetName) with error: \(failure.localizedDescription)")
+                    completion(nil)
             }
-        } receiveValue: { modelEntity in
-            self.modelEntity = modelEntity
+        } receiveValue: { planetEntity in
+            print("[DEBUG]: planet \(self.planetName) loaded")
+            self.modelEntity = planetEntity
             self.modelEntity.name = self.planetName
             self.modelEntity.generateCollisionShapes(recursive: true) // so that the object can be tapped
+            self.translateAndScaleModelEntity()
+            completion(self.modelEntity)
         }
         .store(in: &cancellables)
+    }
+    
+    func loadModelEntity() -> ModelEntity? {
+        print("[DEBUG]: loading planet: \(self.planetName)")
+        do {
+            let entity = try ModelEntity.loadModel(named: self.planetName + ".usdz")
+            self.modelEntity = entity
+            self.modelEntity.name = self.planetName
+            self.modelEntity.generateCollisionShapes(recursive: true) // so that the object can be tapped
+            self.translateAndScaleModelEntity()
+            
+            return self.modelEntity
+            
+        } catch {
+            print("[DEBUG]: Failed to load model entity: \(self.planetName) with error: \(error.localizedDescription)")
+        }
+        
+        return nil
+        
     }
     
     func addOrbitAnimation(){
@@ -60,5 +97,11 @@ class PlanetModel {
             let animationResource = try! AnimationResource.generate(with: animationDefinition)
             self.modelEntity.playAnimation(animationResource)
         }
+    }
+    
+    // positioning the modelENtity
+    func translateAndScaleModelEntity() {
+        self.modelEntity.transform.translation.z = 0 - self.planetDistanceScale
+        self.modelEntity.transform.scale = SIMD3(x: self.planetScaleSize, y: self.planetScaleSize, z: self.planetScaleSize)
     }
 }

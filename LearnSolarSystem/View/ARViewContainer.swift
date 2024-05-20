@@ -12,6 +12,8 @@ import UIKit
 
 struct ARViewContainer: UIViewRepresentable {
     
+    @ObservedObject var viewModel: ARView_ViewModel
+    
     let arView = ARView(frame: .zero)
     
     // Create initial horizontal plane anchor for the content
@@ -23,7 +25,7 @@ struct ARViewContainer: UIViewRepresentable {
         
         setupTapGestureRecognizer(context: context)
         
-        loadPlanets()
+        loadAssets()
         addAnchor()
         
         return arView
@@ -49,8 +51,56 @@ struct ARViewContainer: UIViewRepresentable {
         Coordinator(self)
     }
     
-    func loadPlanets(){
+    func loadAssets(){
+//        // set loadingState to true before starting the loading process
+//        DispatchQueue.main.async {
+//            viewModel.isLoading = true
+//        }
         
+        // load sun first
+        let sunModel: PlanetModel = PlanetData.planets[0]
+        sunModel.loadModelEntity(completion: { modelEntity in
+            if let sunEntity = modelEntity {
+                anchor.children.append(sunEntity)
+                
+                // load all planets async
+                loadAllPlanetsAsync(completion: { planetList in
+                    for planet in planetList {
+                        if let p = planet {
+                            sunEntity.children.append(p)
+                        }
+                       
+                    }
+                    
+//                    // set is loading to false
+//                    DispatchQueue.main.async {
+//                        viewModel.isLoading = false
+//                    }
+                })
+            }
+        })
+    }
+    
+    func loadAllPlanetsAsync(completion: @escaping ([ModelEntity?]) -> Void) {
+        let dispatchGroup = DispatchGroup()
+        var planets: [ModelEntity?] = Array(repeating: nil, count: PlanetData.planets.count - 1)
+        
+        for i in stride(from: 1, to: PlanetData.planets.count, by: 1) {
+            dispatchGroup.enter()
+            
+            let planet = PlanetData.planets[i]
+            planet.loadModelEntity(completion: { modelEntity in
+                if let planetEntity = modelEntity {
+                    planets.insert(planetEntity, at: planet.planetPosition - 1)
+                    dispatchGroup.leave()
+                }
+            })
+        }
+        
+        dispatchGroup.notify(queue: .main) {
+            print("[DEBUG]: All planets assets loaded")
+            completion(planets)
+        }
     }
     
     func addDebugBox(){
@@ -61,5 +111,9 @@ struct ARViewContainer: UIViewRepresentable {
         model.transform.translation.y = 0.05
         
         anchor.children.append(model)
+    }
+    
+    static func dismantleUIView(_ uiView: ARView, coordinator: Coordinator) {
+        uiView.session.pause()
     }
 }
