@@ -11,28 +11,28 @@ import SwiftUI
 import UIKit
 
 struct ARViewContainer: UIViewRepresentable {
-    let arView = ARView(frame: .zero)
-    
     @ObservedObject var viewModel: ARView_ViewModel
     
     // Create initial horizontal plane anchor for the content
     let anchor = AnchorEntity()
     
     func makeUIView(context: Context) -> ARView {
+        let arView = ARView(frame: .zero)
+        
         // for debugging
         arView.debugOptions = .showWorldOrigin
         
-        setupTapGestureRecognizer(context: context)
+        setupTapGestureRecognizer(arView: arView, context: context)
         
-        loadAssets()
-        addAnchor()
+        addAnchor(arView: arView)
+        loadAssets(arView: arView)
         
         return arView
     }
     
     func updateUIView(_ uiView: ARView, context: Context) {}
     
-    func setupTapGestureRecognizer(context: Context){
+    func setupTapGestureRecognizer(arView: ARView, context: Context){
         let tapGesture = UITapGestureRecognizer(
             target: context.coordinator,
             action: #selector(context.coordinator.handleTap(_:))
@@ -40,7 +40,7 @@ struct ARViewContainer: UIViewRepresentable {
         arView.addGestureRecognizer(tapGesture)
     }
     
-    func addAnchor(){
+    func addAnchor(arView: ARView){
         // Add the horizontal plane anchor to the scene
         arView.scene.anchors.append(anchor)
         print("[DEBUG]: Anchor added to the scene")
@@ -51,7 +51,11 @@ struct ARViewContainer: UIViewRepresentable {
         Coordinator(self)
     }
     
-    func loadAssets(){
+    func loadAssets(arView: ARView) {
+        DispatchQueue.main.async {
+            self.viewModel.isLoading = true
+        }
+        
         // load sun first
         let sunModel: PlanetModel = PlanetData.planets[0]
         sunModel.loadModelEntity(completion: { modelEntity in
@@ -65,8 +69,12 @@ struct ARViewContainer: UIViewRepresentable {
                             sunEntity.children.append(p)
                         }
                     }
-                    print("[DEBUG]: All planets assets successfully put in place")
-                    print("[DEBUG]: ending isLoading status: \(self.viewModel.isLoading)")
+                    DispatchQueue.main.async {
+                        self.viewModel.isLoading = false
+                        print("[DEBUG]: All planets assets successfully put in place")
+                        print("[DEBUG]: ending isLoading status: \(self.viewModel.isLoading)")
+                    }
+
                 })
             }
         })
