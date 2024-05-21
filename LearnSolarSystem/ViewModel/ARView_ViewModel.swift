@@ -9,8 +9,11 @@ import Foundation
 
 class ARView_ViewModel: ObservableObject {
     @Published var isLoading: Bool = true
+    @Published var isPaused: Bool = false
     
 }
+
+
 
 struct PlanetData {
     static var planets = [
