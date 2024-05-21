@@ -24,6 +24,7 @@ class Coordinator: NSObject {
         if let modelEntity = arView.entity(at: tapLocation) {
             // handle logic on the tapped entity
             print("[DEBUG] Tapped on entity: \(modelEntity.name)")
+            parent.runPlanetTapEvent(planetName: modelEntity.name)
         }
     }
 }

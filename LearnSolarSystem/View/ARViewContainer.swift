@@ -7,6 +7,7 @@
 
 import Foundation
 import RealityKit
+import ARKit
 import SwiftUI
 import UIKit
 
@@ -20,8 +21,9 @@ struct ARViewContainer: UIViewRepresentable {
         let arView = ARView(frame: .zero)
         
         // for debugging
-        arView.debugOptions = .showWorldOrigin
+//        arView.debugOptions = .showWorldOrigin
         
+        configureArView(arView: arView)
         setupTapGestureRecognizer(arView: arView, context: context)
         
         addAnchor(arView: arView)
@@ -31,6 +33,16 @@ struct ARViewContainer: UIViewRepresentable {
     }
     
     func updateUIView(_ uiView: ARView, context: Context) {}
+    
+    func configureArView(arView: ARView){
+        arView.automaticallyConfigureSession = false
+        
+        let config = ARWorldTrackingConfiguration()
+        config.planeDetection = [.horizontal, .vertical]
+        config.environmentTexturing = .automatic
+        
+        arView.session.run(config)
+    }
     
     func setupTapGestureRecognizer(arView: ARView, context: Context){
         let tapGesture = UITapGestureRecognizer(
@@ -140,18 +152,23 @@ struct ARViewContainer: UIViewRepresentable {
     func scaleEntities(scaleValue: Float){
         if let sunEntity = anchor.children.first(where: { $0.name == "Sun" }) {
             let sunModel = PlanetData.findPlanetByName(planetName: "Sun")
-            if let sunModel = sunModel {
-                PlanetModel.scaleModelEntity(planetEntity: sunEntity as! ModelEntity, baseScaleValue: sunModel.planetScaleSize, scaleValue: scaleValue)
+            if sunModel != nil {
+                PlanetModel.scaleModelEntity(planetEntity: sunEntity as! ModelEntity, scaleValue: scaleValue)
             }
             
             for child in sunEntity.children {
                 let planetModel = PlanetData.findPlanetByName(planetName: child.name)
-                if let planetModel = planetModel {
-                    PlanetModel.scaleModelEntity(planetEntity: child as! ModelEntity, baseScaleValue: planetModel.planetScaleSize, scaleValue: scaleValue)
+                if planetModel != nil {
+                    PlanetModel.scaleModelEntity(planetEntity: child as! ModelEntity, scaleValue: scaleValue)
                 }
             }
             print("[DEBUG]: planet were scaled")
         }
+    }
+    
+    // notified content view a tap event
+    func runPlanetTapEvent(planetName: String){
+        viewModel.handlePlanetTapEvent(planetName: planetName)
     }
     
     

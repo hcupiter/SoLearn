@@ -10,14 +10,18 @@ import Foundation
 class ARView_ViewModel: ObservableObject {
     @Published var isLoading: Bool = true
     @Published var isPaused: Bool = false
-    @Published var arViewContainer: ARViewContainer!
+    @Published var arViewContainer: ARViewContainer?
+    
+    @Published var planetTapped: PlanetModel? = nil
     
     func setArViewContainer(arViewContainer: ARViewContainer){
         self.arViewContainer = arViewContainer
     }
     
     func scalePlanets(scaleValue: Float){
-        arViewContainer.scaleEntities(scaleValue: scaleValue)
+        if let arViewContainer = arViewContainer {
+            arViewContainer.scaleEntities(scaleValue: scaleValue)
+        }
     }
     
     func startOrPauseAnimation(){
@@ -52,6 +56,11 @@ class ARView_ViewModel: ObservableObject {
        
     }
     
+    func handlePlanetTapEvent(planetName: String){
+        let tappedPlanet = PlanetData.findPlanetByName(planetName: planetName)
+        self.planetTapped = tappedPlanet
+    }
+    
 }
 
 
@@ -66,7 +75,7 @@ struct PlanetData {
             planetOrbitTime: nil,
             planetOrbitAnimationDuration: nil,
             planetScaleSize: 3,
-            planetDistanceScale: 0.5
+            planetDistanceScale: 0
         ),
         PlanetModel(
             planetPosition: 1,
@@ -76,7 +85,7 @@ struct PlanetData {
             planetOrbitTime: "It took 88 earth day to orbit the sun.",
             planetOrbitAnimationDuration: 10,
             planetScaleSize: 0.05,
-            planetDistanceScale: 0.2
+            planetDistanceScale: 0.15
         ),
         PlanetModel(
             planetPosition: 2,
@@ -86,7 +95,7 @@ struct PlanetData {
             planetOrbitTime: "Venus took 225 earth days to finish orbiting the sun",
             planetOrbitAnimationDuration: 12.78,
             planetScaleSize: 0.1,
-            planetDistanceScale: 0.25
+            planetDistanceScale: 0.20
         ),
         PlanetModel(
             planetPosition: 3,
@@ -96,7 +105,7 @@ struct PlanetData {
             planetOrbitTime: "Earth took 365.25 days (1 year) to finish orbitting the sun!",
             planetOrbitAnimationDuration: 20.74,
             planetScaleSize: 0.1,
-            planetDistanceScale: 0.30
+            planetDistanceScale: 0.25
         ),
         PlanetModel(
             planetPosition: 4,
@@ -106,7 +115,7 @@ struct PlanetData {
             planetOrbitTime: "Did you know that 1 year in Mars equals 687 Earth Days",
             planetOrbitAnimationDuration: 39.06,
             planetScaleSize: 0.09,
-            planetDistanceScale: 0.35
+            planetDistanceScale: 0.30
         ),
         PlanetModel(
             planetPosition: 5,
@@ -126,7 +135,7 @@ struct PlanetData {
             planetOrbitTime: "Saturn finish orbiting the sun in 29.4 years!",
             planetOrbitAnimationDuration: 609.71,
             planetScaleSize: 0.3,
-            planetDistanceScale: 0.45
+            planetDistanceScale: 0.55
         ),
         PlanetModel(
             planetPosition: 7,
@@ -136,7 +145,7 @@ struct PlanetData {
             planetOrbitTime: "Uranus took 84 earth years to finish rotating the sun!",
             planetOrbitAnimationDuration: 1741.36,
             planetScaleSize: 0.1,
-            planetDistanceScale: 0.55
+            planetDistanceScale: 0.65
         ),
         PlanetModel(
             planetPosition: 8,
@@ -146,7 +155,7 @@ struct PlanetData {
             planetOrbitTime: "Neptune took 165 earth years to finish rotating the sun!",
             planetOrbitAnimationDuration: 3422.44,
             planetScaleSize: 0.09,
-            planetDistanceScale: 0.6
+            planetDistanceScale: 0.7
         ),
     ]
     

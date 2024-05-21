@@ -12,6 +12,9 @@ struct ContentView : View {
     @StateObject private var viewmodel = ARView_ViewModel()
     @State private var isLoading: Bool = true
     @State private var scaleValue: Float = 1
+    @State private var scaleTimer: Timer?
+    
+    @State private var isOpeningPlanetDetails: Bool = false
     
     var body: some View {
         // put arview to content view
@@ -23,26 +26,40 @@ struct ContentView : View {
                     viewmodel.startOrPauseAnimation()
                 }, label: {
                     Image(systemName: viewmodel.isPaused ? "pause.fill" : "play.fill")
-                        .foregroundColor(.black) // Set the icon color to black
-                        .frame(width: 50, height: 50) // Adjust the frame to control the button size
-                        .background(Color.white) // Set the background color to white
-                        .clipShape(Circle()) // Make the background a circle
+                        .foregroundColor(.black)
+                        .frame(width: 50, height: 50)
+                        .background(Color.white)
+                        .clipShape(Circle())
                 })
                 .padding(.bottom, 40)
             }
             VerticalSlider(sliderValue: $scaleValue)
                 .onChange(of: scaleValue) { oldValue, newValue in
-                    viewmodel.scalePlanets(scaleValue: newValue)
+                    viewmodel.scalePlanets(scaleValue: newValue - oldValue)
                 }
         }
-        .opacity(isLoading ? 0 : 1)
+        .opacity(isLoading || isOpeningPlanetDetails ? 0 : 1)
         .overlay(content: {
             if isLoading {
                 LoadingView(isLoading: $isLoading)
                     .opacity(isLoading ? 1 : 0)
             }
+            
+            if isOpeningPlanetDetails {
+                PlanetDetails(viewModel: viewmodel)
+                    .ignoresSafeArea()
+            }
+            
         })
         .ignoresSafeArea()
+        .onReceive(viewmodel.$planetTapped, perform: { _ in
+            if viewmodel.planetTapped == nil {
+                isOpeningPlanetDetails = false
+            } else {
+                isOpeningPlanetDetails = true
+            }
+            
+        })
         .onChange(of: viewmodel.isLoading) { oldValue, newValue in
             self.isLoading = newValue
             print("[DEBUG]: ContentView loading status: \(isLoading)")

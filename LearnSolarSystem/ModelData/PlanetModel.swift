@@ -133,21 +133,19 @@ class PlanetModel {
         }
     }
     
-    static func scaleModelEntity(planetEntity: ModelEntity, baseScaleValue: Float?, scaleValue: Float) {
-        guard let baseValue = baseScaleValue else { return }
-        
-        // Update the translation based on the scale value
+    static func scaleModelEntity(planetEntity: ModelEntity, scaleValue: Float) {
+        // set translation scale
         planetEntity.transform.translation = SIMD3(
-            x: planetEntity.position.x * scaleValue,
-            y: planetEntity.position.y * scaleValue,
-            z: planetEntity.position.z * scaleValue
+            x: planetEntity.position.x + (planetEntity.position.x * scaleValue),
+            y: planetEntity.position.y + (planetEntity.position.y * scaleValue),
+            z: planetEntity.position.z + (planetEntity.position.z * scaleValue)
         )
         
-        // Set the scale based on the base value and scale value
+        // set size scale
         planetEntity.transform.scale = SIMD3(
-            x: baseValue * scaleValue,
-            y: baseValue * scaleValue,
-            z: baseValue * scaleValue
+            x: planetEntity.scale.x + (planetEntity.scale.x * scaleValue),
+            y: planetEntity.scale.y + (planetEntity.scale.y * scaleValue),
+            z: planetEntity.scale.z + (planetEntity.scale.z * scaleValue)
         )
     }
 }
