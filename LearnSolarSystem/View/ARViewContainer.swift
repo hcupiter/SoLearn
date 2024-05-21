@@ -21,7 +21,7 @@ struct ARViewContainer: UIViewRepresentable {
         let arView = ARView(frame: .zero)
         
         // for debugging
-//        arView.debugOptions = .showWorldOrigin
+        // arView.debugOptions = .showWorldOrigin
         
         configureArView(arView: arView)
         setupTapGestureRecognizer(arView: arView, context: context)
@@ -34,7 +34,7 @@ struct ARViewContainer: UIViewRepresentable {
     
     func updateUIView(_ uiView: ARView, context: Context) {}
     
-    func configureArView(arView: ARView){
+    func configureArView(arView: ARView) {
         arView.automaticallyConfigureSession = false
         
         let config = ARWorldTrackingConfiguration()
@@ -44,7 +44,7 @@ struct ARViewContainer: UIViewRepresentable {
         arView.session.run(config)
     }
     
-    func setupTapGestureRecognizer(arView: ARView, context: Context){
+    func setupTapGestureRecognizer(arView: ARView, context: Context) {
         let tapGesture = UITapGestureRecognizer(
             target: context.coordinator,
             action: #selector(context.coordinator.handleTap(_:))
@@ -52,7 +52,7 @@ struct ARViewContainer: UIViewRepresentable {
         arView.addGestureRecognizer(tapGesture)
     }
     
-    func addAnchor(arView: ARView){
+    func addAnchor(arView: ARView) {
         // Add the horizontal plane anchor to the scene
         arView.scene.anchors.append(anchor)
         print("[DEBUG]: Anchor added to the scene")
@@ -75,6 +75,10 @@ struct ARViewContainer: UIViewRepresentable {
                     for planet in planetList {
                         if let p = planet {
                             sunEntity.children.append(p)
+                            // Add orbit line for each planet
+                            if let orbitLine = createOrbitLine(radius: Float(p.transform.translation.x)) {
+                                sunEntity.addChild(orbitLine)
+                            }
                         }
                     }
                     DispatchQueue.main.async {
@@ -100,7 +104,7 @@ struct ARViewContainer: UIViewRepresentable {
             let planet = PlanetData.planets[i]
             planet.loadModelEntity(completion: { modelEntity in
                 if let planetEntity = modelEntity {
-                    planets.insert(planetEntity, at: planet.planetPosition - 1)
+                    planets[planet.planetPosition - 1] = planetEntity
                     // add orbit animation
                     PlanetModel.addOrbitAnimation(planetEntity: planetEntity, planetOrbitAnimationDuration: planet.planetOrbitAnimationDuration)
                     dispatchGroup.leave()
@@ -114,7 +118,38 @@ struct ARViewContainer: UIViewRepresentable {
         }
     }
     
-    func addDebugBox(){
+    func createOrbitLine(radius: Float) -> ModelEntity? {
+        let orbit = ModelEntity()
+        let segments = 100
+        let angle = (2 * Float.pi) / Float(segments)
+        var points: [SIMD3<Float>] = []
+        
+        for i in 0..<segments {
+            let x = cos(Float(i) * angle) * radius
+            let z = sin(Float(i) * angle) * radius
+            points.append(SIMD3(x, 0, z))
+        }
+        
+        var previousPoint = points.last!
+        for point in points {
+            let length = lengthBetween(point1: previousPoint, point2: point)
+            let line = MeshResource.generateBox(size: [0.0005, 0.0005, length])
+            let material = SimpleMaterial(color: .white, isMetallic: false)
+            let lineEntity = ModelEntity(mesh: line, materials: [material])
+            lineEntity.position = SIMD3((previousPoint.x + point.x) / 2, 0, (previousPoint.z + point.z) / 2)
+            lineEntity.look(at: point, from: lineEntity.position, relativeTo: nil)
+            orbit.addChild(lineEntity)
+            previousPoint = point
+        }
+        
+        return orbit
+    }
+    
+    func lengthBetween(point1: SIMD3<Float>, point2: SIMD3<Float>) -> Float {
+        return simd_length(point1 - point2)
+    }
+    
+    func addDebugBox() {
         // Create a cube model
         let mesh = MeshResource.generateBox(size: 0.1, cornerRadius: 0.005)
         let material = SimpleMaterial(color: .green, roughness: 0.15, isMetallic: true)
@@ -149,7 +184,7 @@ struct ARViewContainer: UIViewRepresentable {
         }
     }
     
-    func scaleEntities(scaleValue: Float){
+    func scaleEntities(scaleValue: Float) {
         if let sunEntity = anchor.children.first(where: { $0.name == "Sun" }) {
             let sunModel = PlanetData.findPlanetByName(planetName: "Sun")
             if sunModel != nil {
@@ -167,11 +202,9 @@ struct ARViewContainer: UIViewRepresentable {
     }
     
     // notified content view a tap event
-    func runPlanetTapEvent(planetName: String){
+    func runPlanetTapEvent(planetName: String) {
         viewModel.handlePlanetTapEvent(planetName: planetName)
     }
-    
-    
     
     static func dismantleUIView(_ uiView: ARView, coordinator: Coordinator) {
         uiView.session.pause()
@@ -181,8 +214,9 @@ struct ARViewContainer: UIViewRepresentable {
         return self
     }
     
-    // overided function to communicate with SwiftUI
+    // overridden function to communicate with SwiftUI
     func makeCoordinator() -> Coordinator {
         Coordinator(self)
     }
 }
+
