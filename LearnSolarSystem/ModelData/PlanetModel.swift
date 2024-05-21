@@ -84,20 +84,8 @@ class PlanetModel {
         return nil
         
     }
-    
-    func addOrbitAnimation(){
-        if let duration = planetOrbitAnimationDuration {
-            let animationDefinition = OrbitAnimation(
-                duration: duration,
-                axis: [0, 1, 0],
-                startTransform: self.modelEntity.transform,
-                bindTarget: .transform
-            ).repeatingForever()
-            
-            let animationResource = try! AnimationResource.generate(with: animationDefinition)
-            self.modelEntity.playAnimation(animationResource)
-        }
-    }
+ 
+
     
     // positioning the modelENtity
     func translateAndScaleModelEntity() {
@@ -122,5 +110,44 @@ class PlanetModel {
         }
         
         self.modelEntity.transform.scale = SIMD3(x: self.planetScaleSize, y: self.planetScaleSize, z: self.planetScaleSize)
+    }
+    
+    
+    static func addOrbitAnimation(planetEntity: ModelEntity, planetOrbitAnimationDuration: Double?){
+        if let duration = planetOrbitAnimationDuration {
+            let animationDefinition = OrbitAnimation(
+                duration: duration,
+                axis: [0, 1, 0],
+                startTransform: planetEntity.transform,
+                bindTarget: .transform
+            ).repeatingForever()
+            
+            let animationResource = try! AnimationResource.generate(with: animationDefinition)
+            planetEntity.playAnimation(animationResource)
+        }
+    }
+    
+    static func stopOrbitAnimation(planetEntity: ModelEntity, planetOrbitAnimationDuration: Double?){
+        if planetOrbitAnimationDuration != nil {
+            planetEntity.stopAllAnimations(recursive: true)
+        }
+    }
+    
+    static func scaleModelEntity(planetEntity: ModelEntity, baseScaleValue: Float?, scaleValue: Float) {
+        guard let baseValue = baseScaleValue else { return }
+        
+        // Update the translation based on the scale value
+        planetEntity.transform.translation = SIMD3(
+            x: planetEntity.position.x * scaleValue,
+            y: planetEntity.position.y * scaleValue,
+            z: planetEntity.position.z * scaleValue
+        )
+        
+        // Set the scale based on the base value and scale value
+        planetEntity.transform.scale = SIMD3(
+            x: baseValue * scaleValue,
+            y: baseValue * scaleValue,
+            z: baseValue * scaleValue
+        )
     }
 }

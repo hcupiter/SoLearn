@@ -10,6 +10,47 @@ import Foundation
 class ARView_ViewModel: ObservableObject {
     @Published var isLoading: Bool = true
     @Published var isPaused: Bool = false
+    @Published var arViewContainer: ARViewContainer!
+    
+    func setArViewContainer(arViewContainer: ARViewContainer){
+        self.arViewContainer = arViewContainer
+    }
+    
+    func scalePlanets(scaleValue: Float){
+        arViewContainer.scaleEntities(scaleValue: scaleValue)
+    }
+    
+    func startOrPauseAnimation(){
+        if isPaused {
+            resumeAllAnimation()
+            isPaused = false
+        }
+        else {
+            stopAllAnimation()
+            isPaused = true
+        }
+    }
+    
+    func resumeAllAnimation(){
+        if let arViewContainer = arViewContainer {
+            arViewContainer.resumeAnimations()
+            print("[DEBUG]: animation resumed")
+        }
+        else {
+            print("[DEBUG]: ERROR arViewContainer isn't initialized yet!")
+        }
+    }
+    
+    func stopAllAnimation(){
+        if let arViewContainer = arViewContainer {
+            arViewContainer.pauseAnimations()
+            print("[DEBUG]: animation paused")
+        }
+        else {
+            print("[DEBUG]: ERROR arViewContainer isn't initialized yet!")
+        }
+       
+    }
     
 }
 
@@ -108,4 +149,8 @@ struct PlanetData {
             planetDistanceScale: 0.6
         ),
     ]
+    
+    static func findPlanetByName(planetName: String) -> PlanetModel? {
+        return planets.first(where: { $0.planetName == planetName})
+    }
 }

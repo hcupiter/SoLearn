@@ -11,15 +11,16 @@ import RealityKit
 struct ContentView : View {
     @StateObject private var viewmodel = ARView_ViewModel()
     @State private var isLoading: Bool = true
-    @State private var scaleValue: Double = 1
+    @State private var scaleValue: Float = 1
     
     var body: some View {
         // put arview to content view
-        ZStack (alignment: .bottom) {
+        ZStack (alignment: .center) {
             ARViewContainer(viewModel: viewmodel)
-            HStack {
+            VStack {
+                Spacer()
                 Button(action: {
-                    viewmodel.isPaused.toggle()
+                    viewmodel.startOrPauseAnimation()
                 }, label: {
                     Image(systemName: viewmodel.isPaused ? "pause.fill" : "play.fill")
                         .foregroundColor(.black) // Set the icon color to black
@@ -29,13 +30,10 @@ struct ContentView : View {
                 })
                 .padding(.bottom, 40)
             }
-            
-            VStack (alignment: .trailing) {
-                Spacer()
-                VerticalSlider(sliderValue: $scaleValue)
-            }
-            .frame(maxWidth: .infinity)
-
+            VerticalSlider(sliderValue: $scaleValue)
+                .onChange(of: scaleValue) { oldValue, newValue in
+                    viewmodel.scalePlanets(scaleValue: newValue)
+                }
         }
         .opacity(isLoading ? 0 : 1)
         .overlay(content: {

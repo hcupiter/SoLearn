@@ -8,22 +8,23 @@
 import SwiftUI
 
 struct VerticalSlider: View {
-    @Binding var sliderValue: Double
+    @Binding var sliderValue: Float
 
     var body: some View {
         VStack {
-            GeometryReader { geometry in
-                Slider(value: $sliderValue, in: 0.1...2.0) {
-                    Text("Scale: \(sliderValue, specifier: "%.1f")")
-                }
-                .rotationEffect(.degrees(-90))
-                .frame(width: geometry.size.width / 4, height: geometry.size.height, alignment: .trailing)
-                .padding(.leading, -50)
+            Image(systemName: "plus")
+            Slider(value: $sliderValue, in: 0.1...2.0) {
+                Text("Scale: \(sliderValue, specifier: "%.1f")")
             }
+            .rotationEffect(.degrees(-90))
+            .frame(width: 200, height: 300)
+            .padding(.horizontal, -50)
+            Image(systemName: "minus")
         }
+        .frame(maxWidth: .infinity, alignment: .trailing)
     }
 }
 
 #Preview {
-    VerticalSlider(sliderValue: .constant(0.5))
+    VerticalSlider(sliderValue: .constant(1))
 }
