@@ -15,7 +15,7 @@ struct PlanetDetailsDataView: View {
             VStack(alignment: .leading) {
                 Text("\(planetTapped.planetName)")
                     .padding(.top, 16)
-                    .font(.largeTitle)
+                    .font(.system(size: 48))
                     .fontWeight(.bold)
                     .multilineTextAlignment(.leading)
                 
@@ -29,18 +29,19 @@ struct PlanetDetailsDataView: View {
                 
                 VStack(alignment: .leading, content: {
                     Text("Planet Rotation")
-                        .font(.title2)
+                        
                     Text("\(planetTapped.planetRotationTime)")
                         .foregroundStyle(Color.blue)
+                        .fontWeight(.semibold)
                 })
                 .padding(.vertical, 16)
                 
                 if let planetOrbitTime = planetTapped.planetOrbitTime {
                     VStack(alignment: .leading, content: {
-                        Text("Planet Orbit Time")
-                            .font(.title2)
+                        Text("Planet Revolution")
                         Text("\(planetOrbitTime)")
                             .foregroundStyle(Color.blue)
+                            .fontWeight(.semibold)
                     })
                 }
             }
