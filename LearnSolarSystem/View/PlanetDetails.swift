@@ -42,6 +42,12 @@ struct PlanetDetails: View {
                 Button(action: {
                     dismiss()
                     viewModel.planetTapped = nil
+                    viewModel.planetTappedEvent = false
+                    
+                    if viewModel.isPaused == false {
+                        viewModel.resumeAllAnimation()
+                    }
+                    
                 }, label: {
                     Image(systemName: "arrowshape.turn.up.backward.fill")
                         .foregroundColor(.black)

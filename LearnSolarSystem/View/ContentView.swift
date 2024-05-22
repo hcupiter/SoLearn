@@ -25,7 +25,7 @@ struct ContentView : View {
                 Button(action: {
                     viewmodel.startOrPauseAnimation()
                 }, label: {
-                    Image(systemName: viewmodel.isPaused ? "pause.fill" : "play.fill")
+                    Image(systemName: viewmodel.isPaused ? "play.fill" : "pause.fill")
                         .foregroundColor(.black)
                         .frame(width: 50, height: 50)
                         .background(Color.white)
@@ -52,13 +52,13 @@ struct ContentView : View {
             
         })
         .ignoresSafeArea()
-        .onReceive(viewmodel.$planetTapped, perform: { _ in
+        .onChange(of: viewmodel.planetTappedEvent, { oldValue, newValue in
             if viewmodel.planetTapped == nil {
                 isOpeningPlanetDetails = false
             } else {
                 isOpeningPlanetDetails = true
+                viewmodel.stopAllAnimation()
             }
-            
         })
         .onChange(of: viewmodel.isLoading) { oldValue, newValue in
             self.isLoading = newValue

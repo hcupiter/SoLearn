@@ -13,7 +13,7 @@ struct VerticalSlider: View {
     var body: some View {
         VStack {
             Image(systemName: "plus")
-            Slider(value: $sliderValue, in: 0.5...5)
+            Slider(value: $sliderValue, in: 0.1...5, step: 0.01)
             .rotationEffect(.degrees(-90))
             .frame(width: 200, height: 300)
             .padding(.horizontal, -50)

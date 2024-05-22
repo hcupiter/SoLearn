@@ -12,6 +12,7 @@ class ARView_ViewModel: ObservableObject {
     @Published var isPaused: Bool = false
     @Published var arViewContainer: ARViewContainer?
     
+    @Published var planetTappedEvent: Bool = false
     @Published var planetTapped: PlanetModel? = nil
     
     func setArViewContainer(arViewContainer: ARViewContainer){
@@ -58,6 +59,7 @@ class ARView_ViewModel: ObservableObject {
     
     func handlePlanetTapEvent(planetName: String){
         let tappedPlanet = PlanetData.findPlanetByName(planetName: planetName)
+        self.planetTappedEvent = true
         self.planetTapped = tappedPlanet
     }
     
