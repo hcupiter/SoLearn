@@ -11,10 +11,10 @@ struct PlanetDetailsDataView: View {
     var planetTapped: PlanetModel
     
     var body: some View {
-        VStack {            
+        VStack {
             VStack(alignment: .leading) {
                 Text("\(planetTapped.planetName)")
-                    .padding(.top, 10)
+                    .padding(.top, 16)
                     .font(.largeTitle)
                     .fontWeight(.bold)
                     .multilineTextAlignment(.leading)
@@ -23,6 +23,7 @@ struct PlanetDetailsDataView: View {
                     .font(.body)
                     .foregroundStyle(Color.secondary)
                     .multilineTextAlignment(.leading)
+                    .padding(.bottom, 16)
                 
                 Divider()
                 
@@ -32,7 +33,7 @@ struct PlanetDetailsDataView: View {
                     Text("\(planetTapped.planetRotationTime)")
                         .foregroundStyle(Color.blue)
                 })
-                .padding(.vertical, 1)
+                .padding(.vertical, 16)
                 
                 if let planetOrbitTime = planetTapped.planetOrbitTime {
                     VStack(alignment: .leading, content: {
@@ -47,9 +48,10 @@ struct PlanetDetailsDataView: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
         .ignoresSafeArea()
+        .preferredColorScheme(.dark)
     }
 }
 
 #Preview {
-    PlanetDetailsDataView(planetTapped: PlanetData.planets[0])
+    PlanetDetailsDataView(planetTapped: PlanetData.planets[3])
 }

@@ -11,12 +11,20 @@ struct LoadingView: View {
     @Binding var isLoading: Bool
     @Environment(\.dismiss) private var dismiss
     @State private var rocketOpacity: Double = 0.0
+    @State private var loadingText: String = "Loading assets"
+    @State private var loadingIdx: Int = 0
+    var loadings = [
+        "Loading assets",
+        "Loading assets.",
+        "Loading assets..",
+        "Loading assets..."
+    ]
     
     var body: some View {
         VStack {
             if isLoading {
                 ZStack {
-                    Color.blue.ignoresSafeArea()
+                    Color.black.ignoresSafeArea()
                     ForEach(0..<50) { _ in
                         Circle()
                             .fill(Color.white)
@@ -32,14 +40,15 @@ struct LoadingView: View {
                             .frame(width: 100, height: 150)
                             .scaledToFill()
                             .opacity(rocketOpacity)
-                            .onAppear(){
+                            .onAppear {
                                 withAnimation(.easeInOut(duration: 1).repeatForever()) {
                                     rocketOpacity = 1
                                 }
+                                startLoadingTextAnimation()
                             }
-                        Text("Loading...")
+                        Text("\(loadingText)")
                             .font(.title3)
-                            .foregroundStyle(Color.white)
+                            .foregroundColor(.white)
                     }
                 }
             }
@@ -48,8 +57,20 @@ struct LoadingView: View {
             dismiss()
         }
     }
+    
+    private func startLoadingTextAnimation() {
+        Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { timer in
+            loadingText = loadings[loadingIdx]
+            if loadingIdx >= loadings.count - 1 {
+                loadingIdx = 0
+            } else {
+                loadingIdx += 1
+            }
+        }
+    }
 }
 
 #Preview {
     LoadingView(isLoading: .constant(true))
 }
+

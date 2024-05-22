@@ -30,6 +30,7 @@
 		3A6689D22BFC606D00E27A4A /* PlanetDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A6689D12BFC606D00E27A4A /* PlanetDetails.swift */; };
 		3A6689DA2BFCD31B00E27A4A /* PlanetDetails3D.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A6689D92BFCD31B00E27A4A /* PlanetDetails3D.swift */; };
 		3A6689DE2BFCDCA300E27A4A /* PlanetDetailsDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A6689DD2BFCDCA300E27A4A /* PlanetDetailsDataView.swift */; };
+		3AF553FB2BFDA7F5004B14A2 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3AF553FA2BFDA7F5004B14A2 /* Launch Screen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -57,6 +58,7 @@
 		3A6689D12BFC606D00E27A4A /* PlanetDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanetDetails.swift; sourceTree = "<group>"; };
 		3A6689D92BFCD31B00E27A4A /* PlanetDetails3D.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanetDetails3D.swift; sourceTree = "<group>"; };
 		3A6689DD2BFCDCA300E27A4A /* PlanetDetailsDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanetDetailsDataView.swift; sourceTree = "<group>"; };
+		3AF553FA2BFDA7F5004B14A2 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +100,7 @@
 				3A6689BB2BF9FBD500E27A4A /* View */,
 				3A6688C82BF44F5F00E27A4A /* Assets.xcassets */,
 				3A6688CA2BF44F5F00E27A4A /* Preview Content */,
+				3AF553FA2BFDA7F5004B14A2 /* Launch Screen.storyboard */,
 			);
 			path = LearnSolarSystem;
 			sourceTree = "<group>";
@@ -236,6 +239,7 @@
 				3A6689B02BF9F8F900E27A4A /* Jupiter.usdz in Resources */,
 				3A6689B22BF9F8F900E27A4A /* Sun.usdz in Resources */,
 				3A6689AE2BF9F8F900E27A4A /* Earth.usdz in Resources */,
+				3AF553FB2BFDA7F5004B14A2 /* Launch Screen.storyboard in Resources */,
 				3A6689B52BF9F8F900E27A4A /* Mars.usdz in Resources */,
 				3A6688C92BF44F5F00E27A4A /* Assets.xcassets in Resources */,
 				3A6689AF2BF9F8F900E27A4A /* Mercury.usdz in Resources */,
@@ -399,9 +403,12 @@
 				DEVELOPMENT_TEAM = SW8FY3LA3R;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = Solearn;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
 				INFOPLIST_KEY_NSCameraUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen.storyboard";
 				INFOPLIST_KEY_UIRequiredDeviceCapabilities = arkit;
 				INFOPLIST_KEY_UIStatusBarHidden = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -430,9 +437,12 @@
 				DEVELOPMENT_TEAM = SW8FY3LA3R;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = Solearn;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
 				INFOPLIST_KEY_NSCameraUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen.storyboard";
 				INFOPLIST_KEY_UIRequiredDeviceCapabilities = arkit;
 				INFOPLIST_KEY_UIStatusBarHidden = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";

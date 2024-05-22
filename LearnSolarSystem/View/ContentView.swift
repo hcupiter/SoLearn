@@ -64,6 +64,7 @@ struct ContentView : View {
             self.isLoading = newValue
             print("[DEBUG]: ContentView loading status: \(isLoading)")
         }
+        .preferredColorScheme(.dark)
         
     }
 }

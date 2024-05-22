@@ -13,7 +13,7 @@ class ARView_ViewModel: ObservableObject {
     @Published var arViewContainer: ARViewContainer?
     
     @Published var planetTappedEvent: Bool = false
-    @Published var planetTapped: PlanetModel? = nil
+    @Published var planetTapped: PlanetModel? = PlanetData.planets[3]
     
     func setArViewContainer(arViewContainer: ARViewContainer){
         self.arViewContainer = arViewContainer
