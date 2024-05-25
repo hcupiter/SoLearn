@@ -1,7 +1,7 @@
 <img src="https://github.com/KetsunoAna117/LearnSolarSystem/blob/main/LearnSolarSystem/Assets.xcassets/Icon.imageset/SolIcon-removebg.png" alt="Logo" width="100" height="100">
 
 # SoLearn
-An iPadOS-based AR app to help everyone learn about the solar system in an immersive and unique way.
+An iPadOS-based AR app to help everyone learn about the solar system in an immersive and unique way. This app is developed using RealityKit, SceneKit, and SwiftUI
 
 
 ## Screenshots
