@@ -52,3 +52,7 @@ Contributions are welcome! Please fork the repository and create a pull request 
 ## Feedback
 
 If you have any feedback, please reach out to us at hnsarthh@gmail.com
+
+## License
+
+All rights reserved © 2024 [KetsunoAna117](https://www.github.com/KetsunoAna117)
