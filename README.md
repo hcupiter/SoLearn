@@ -43,7 +43,7 @@ To install and run this app on your iPad, follow these steps:
 
 ## Authors
 
-- [@KetsunoAna117](https://www.github.com/KetsunoAna117)
+- [@Hans Arthur Cupiterson](https://www.github.com/hcupiter)
 
 ## Contributing
 
@@ -55,4 +55,4 @@ If you have any feedback, please reach out to us at hnsarthh@gmail.com
 
 ## License
 
-All rights reserved © 2024 [KetsunoAna117](https://www.github.com/KetsunoAna117)
+All rights reserved © 2024 [KetsunoAna117](https://www.github.com/hcupiter)
